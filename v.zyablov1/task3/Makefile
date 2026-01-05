@@ -1,5 +1,7 @@
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -Wextra -std=c99
+NAME = setuid
 
 all:
-	$(CC) $(CFLAGS) -o setuid main.c
+	$(CC) $(CFLAGS) -o $(NAME) $(NAME).c
+

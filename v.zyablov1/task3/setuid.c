@@ -1,35 +1,27 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 
-int main(int argc, char* argv[]) {
+void do_work(char* filename) {
+	printf("Real user id: %u.\nEffective user id: %u.\n",
+    	getuid(), geteuid());
 
-  if (argc != 2) {
-    perror("Wrong arguments count.\n");
-    return -1;
-  }
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("File could not be opened.\n");
+    } else {
+        fclose(file);
+    }
+}
 
-  printf("Real UID: %d\nEffective UID: %d\n", getuid(), geteuid());
+int main(int argc, char *argv[]) {
+    if (argc < 2){
+        printf("filename argument is missing\n");
+        return -1;
+    }
 
-  FILE* file = fopen(argv[1], "r");
-  if (file) {
-    fclose(file);
-  }
-  else {
-    perror(argv[1]);
-  }
+    do_work(argv[1]);
+    setuid(geteuid());
+    do_work(argv[1]);
 
-  setuid(geteuid());
-  printf("Real UID: %d\nEffective UID: %d\n", getuid(), geteuid());
-
-  file = fopen(argv[1], "r");
-  if (file) {
-    fclose(file);
-  }
-  else {
-    perror(argv[1]);
-    return -1;
-  }
-
-  return 0;
+    return 0;
 }

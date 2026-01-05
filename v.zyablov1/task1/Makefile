@@ -1,5 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -std=gnu11
+CFLAGS = -Wall -Wextra -std=c99
+NAME = process_info
 
 all:
-	$(CC) $(CFLAGS) -o getopt_ex main.c
+	$(CC) $(CFLAGS) -o $(NAME) $(NAME).c

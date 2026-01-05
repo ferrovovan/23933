@@ -1,9 +1,6 @@
-# Makefile для ex_time_pst.c
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -Wextra -std=c99
+NAME = ex_time_pst
 
-ex_time_pst: ex_time_pst.c
-	$(CC) $(CFLAGS) -o ex_time_pst ex_time_pst.c
-
-clean:
-	rm -f ex_time_pst
+all:
+	$(CC) $(CFLAGS) -o $(NAME) $(NAME).c
